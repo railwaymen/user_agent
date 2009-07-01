@@ -156,9 +156,9 @@ private
     end
     
     @os_version = case element
-    when /Mac OS X (10_._.)/
+    when /Mac OS X ([0-9_]{4,})/
       $1.gsub('_','.')
-    when /iPhone OS (._.)/
+    when /iPhone OS ([0-9_]{3,})/
       $1.gsub('_','.')
     end
   end
