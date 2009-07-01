@@ -41,6 +41,7 @@ private
   
   def identify_browser
     identify_browser_opera or
+    identify_browser_chrome or
     identify_browser_safari or
     identify_browser_honest or
     identify_browser_compatible or
@@ -60,6 +61,15 @@ private
         @browser_version = opera[1]
       end
       @browser_name = "Opera"
+    end
+  end
+  
+  def identify_browser_chrome
+    return unless @user_agent =~ /Chrome/
+    
+    if chrome = @products.detect{|product| product[0] == 'Chrome'}
+      @browser_version = chrome[1]
+      @browser_name = "Chrome"
     end
   end
   
