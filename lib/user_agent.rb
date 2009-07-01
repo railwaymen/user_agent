@@ -143,8 +143,11 @@ private
       'Mac OS X'
     end
     
-    if element =~ /(10_._.)/
-      @os_version = $1.gsub('_','.')
+    @os_version = case element
+    when /Mac OS X (10_._.)/
+      $1.gsub('_','.')
+    when /iPhone OS (._.)/
+      $1.gsub('_','.')
     end
   end
   
