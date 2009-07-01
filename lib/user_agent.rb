@@ -85,9 +85,47 @@ private
     if version = @products.detect{|product| product[0] == 'Version'}
       @browser_version = version[1]
     elsif browser = @products.detect{|product| product[0] == 'Safari'}
-      @browser_version = browser[1]
+      @browser_version = safari_build_to_version(browser[1])
     end
+    
+    if @user_agent =~ /Mobile/
+      @browser_version = ["Mobile", @browser_version].compact.join(" ")
+    end
+    
     @browser_name = 'Safari'
+  end
+  
+  SAFARI_BUILD_TO_VERSION = {
+    '85.5'=>'1.0',
+    '85.7'=>'1.0.2',
+    '85.8'=>'1.0.3',
+    '85.8.1'=>'1.0.3',
+    '100'=>'1.1',
+    '100.1'=>'1.1.1',
+    '125.7'=>'1.2.2',
+    '125.8'=>'1.2.2',
+    '125.9'=>'1.2.3',
+    '125.11'=>'1.2.4',
+    '125.12'=>'1.2.4',
+    '312'=>'1.3',
+    '312.3'=>'1.3.1',
+    '312.3.1'=>'1.3.1',
+    '312.5'=>'1.3.2',
+    '312.6'=>'1.3.2',
+    '412'=>'2.0',
+    '412.2'=>'2.0',
+    '412.2.2'=>'2.0',
+    '412.5'=>'2.0.1',
+    '416.12'=>'2.0.2',
+    '416.13'=>'2.0.2',
+    '417.8'=>'2.0.3',
+    '417.9.2'=>'2.0.3',
+    '417.9.3'=>'2.0.3',
+    '419.3'=>'2.0.4'
+  }
+  
+  def safari_build_to_version(build)
+    SAFARI_BUILD_TO_VERSION[build] || build
   end
   
   def identify_browser_honest
