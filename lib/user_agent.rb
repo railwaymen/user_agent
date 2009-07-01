@@ -87,10 +87,10 @@ private
   end
   
   def identify_browser_honest
-    honest_browsers = %w(Firefox Netscape Camino Mosaic Galeon prism Fluid)
+    honest_browsers = %w(Firefox Netscape Camino Mosaic Galeon Prism prism Fluid)
     if browser = @products.detect{|product| honest_browsers.include? product[0]}
       @browser_version = browser[1]
-      @browser_name = browser[0]
+      @browser_name = (browser[0] || "").capitalize
     end
   end
   
