@@ -52,7 +52,9 @@ private
   def identify_browser_opera
     return unless @user_agent =~ /Opera/
     
-    if opera = @products.detect{|product| product[0] == 'Opera'}
+    if version = @products.detect{|product| product[0] == 'Version'}
+      @browser_version = version[1]
+    elsif opera = @products.detect{|product| product[0] == 'Opera'}
       if opera[1].nil?
         if @products[-2][0] == 'Opera'
           @browser_version = @products[-1][0]
@@ -60,8 +62,8 @@ private
       else
         @browser_version = opera[1]
       end
-      @browser_name = "Opera"
     end
+    @browser_name = "Opera"
   end
   
   def identify_browser_chrome
