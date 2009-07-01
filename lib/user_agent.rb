@@ -193,7 +193,7 @@ private
     @os_name = case element
     when /iphone/i
       'iPhone'
-    elsif /Mac OS X/
+    when /Mac OS X/
       'Mac OS X'
     else
       'Macintosh'
