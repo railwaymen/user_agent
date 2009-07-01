@@ -59,6 +59,10 @@ private
         if @products[-2][0] == 'Opera'
           @browser_version = @products[-1][0]
         end
+      elsif @user_agent =~ /Opera Mini/
+        @browser_version = "Mini #{opera[1]}"
+      elsif @user_agent =~ /Opera Mobi/
+        @browser_version = "Mobile #{opera[1]}"
       else
         @browser_version = opera[1]
       end
