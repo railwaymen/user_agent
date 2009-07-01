@@ -42,8 +42,8 @@ private
   def identify_browser
     identify_browser_opera or
     identify_browser_chrome or
-    identify_browser_safari or
     identify_browser_honest or
+    identify_browser_safari or
     identify_browser_compatible or
     identify_browser_mozilla or
     identify_browser_other
@@ -87,7 +87,7 @@ private
   end
   
   def identify_browser_honest
-    honest_browsers = %w(Firefox Netscape Camino Mosaic Galeon)
+    honest_browsers = %w(Firefox Netscape Camino Mosaic Galeon prism Fluid)
     if browser = @products.detect{|product| honest_browsers.include? product[0]}
       @browser_version = browser[1]
       @browser_name = browser[0]
