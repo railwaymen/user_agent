@@ -41,6 +41,7 @@ private
   
   def identify_browser
     identify_browser_opera or
+    identify_browser_chromeframe or
     identify_browser_chrome or
     identify_browser_honest or
     identify_browser_safari or
@@ -78,6 +79,14 @@ private
       @browser_name = "Chrome"
     end
   end
+  
+  def identify_browser_chromeframe
+    return unless @user_agent =~ /chromeframe/
+    
+    @browser_version = nil
+    @browser_name = "ChromeFrame"
+  end
+  
   
   def identify_browser_safari
     return unless @user_agent =~ /Safari|iPhone/
