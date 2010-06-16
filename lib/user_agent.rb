@@ -1,8 +1,7 @@
 class UserAgent
   VERSION = '0.0.1'
   
-  attr_reader :browser_name, :browser_version
-  attr_reader :os_name, :os_version
+  attr_reader :browser_name, :browser_version, :os_name, :os_version
   
   def initialize(user_agent)
     @user_agent = user_agent
@@ -60,15 +59,18 @@ private
         if @products[-2][0] == 'Opera'
           @browser_version = @products[-1][0]
         end
-      elsif @user_agent =~ /Opera Mini/
-        @browser_version = "Mini #{opera[1]}"
-      elsif @user_agent =~ /Opera Mobi/
-        @browser_version = "Mobile #{opera[1]}"
       else
         @browser_version = opera[1]
       end
     end
-    @browser_name = "Opera"
+    @browser_name = case @user_agent
+      when /Opera Mini\//i
+        "Opera Mini"
+      when /Opera Mobi\//i
+        "Opera Mobile"
+      else
+        "Opera"
+      end
   end
   
   def identify_browser_chrome
@@ -87,7 +89,6 @@ private
     @browser_name = "ChromeFrame"
   end
   
-  
   def identify_browser_safari
     return unless @user_agent =~ /Safari|iPhone/
     
@@ -97,11 +98,7 @@ private
       @browser_version = safari_build_to_version(browser[1])
     end
     
-    if @user_agent =~ /Mobile/
-      @browser_version = ["Mobile", @browser_version].compact.join(" ")
-    end
-    
-    @browser_name = 'Safari'
+    @browser_name = @user_agent =~ /Mobile/ ? 'Safari Mobile' : 'Safari'
   end
   
   SAFARI_BUILD_TO_VERSION = {
@@ -130,7 +127,9 @@ private
     '417.8'=>'2.0.3',
     '417.9.2'=>'2.0.3',
     '417.9.3'=>'2.0.3',
-    '419.3'=>'2.0.4'
+    '419.3'=>'2.0.4',
+    '419' => '2.0.4',
+    '425.13' => '2.2'
   }
   
   def safari_build_to_version(build)
@@ -169,8 +168,7 @@ private
   end
   
   def identify_browser_other
-    @browser_version = @products.first[1]
-    @browser_name = @products.first[0]
+    # do nothing
   end
   
   # OS Identification
@@ -178,13 +176,14 @@ private
   def identify_os
     @comment_elements = @products[0][2].split(/\s*;\s*/) rescue []
     identify_os_windows or
-    identify_os_mac or
+    identify_os_apple or
     identify_os_linux or
     identify_os_other
   end
   
   def identify_os_windows
-    return unless element = @comment_elements.detect{|e| e =~ /^win.*\d/i}
+    return unless element = @comment_elements.detect{|e| e =~ /^win.*\d/i} or
+                  @user_agent =~ /Microsoft Windows/
     @os_name = 'Windows'
     @os_version = case element
     when /98/ then '98'
@@ -193,22 +192,31 @@ private
     when /NT 5.0/ then '2000'
     when /NT 5.1/ then 'XP'
     when /NT 6.0/ then 'Vista'
+    when /NT 6.1/ then '7'
     end
   end
   
-  def identify_os_mac
+  def identify_os_apple
     return unless element = @comment_elements.detect{|e| e =~ /Mac OS X/} or
                   element = @comment_elements.detect{|e| e =~ /Macintosh/}
-    @os_name = case element
-    when /iphone/i
+                  
+    @os_name = case @comment_elements[0]
+    when /ipad/i
+      'iPad'
+    when /iphone/i, /ipod/i
       'iPhone'
-    when /Mac OS X/
-      'Mac OS X'
     else
-      'Macintosh'
+      case element
+      when /Mac OS X/
+        'Mac OS X'
+      else
+        'Macintosh'
+      end
     end
     
     @os_version = case element
+    when /OS ([0-9_\.]{3,}) like Mac OS X/
+      $1.gsub('_','.')
     when /Mac OS X ([0-9_\.]{4,})/
       $1.gsub('_','.')
     when /iPhone OS ([0-9_\.]{3,})/
@@ -219,6 +227,12 @@ private
   def identify_os_linux
     return unless element = @comment_elements.detect{|e| e =~ /linux/i}
     @os_name = 'Linux'
+    @os_version = case @user_agent
+    when /Ubuntu\/([0-9_\.]{3,})/
+      "Ubuntu #{$1}"
+    else
+      nil
+    end
   end
   
   def identify_os_other
