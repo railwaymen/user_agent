@@ -25,7 +25,22 @@ class UserAgent
     @user_agent || ""
   end
   
+  def normalized_browser_version
+    return browser_version if !browser_version || browser_version == "" || !(browser_version =~ /\d/)
+    chars = browser_version =~ /([^\d\.]+$)/ ? $1 : ""
+    nrs = browser_version.split(/\./)[0..1].each do |nr| 
+      nr.gsub!(/^[0]+$/, "0")
+    end
+    
+    if !nrs[1] || nrs[1] == ""
+      nrs = [(nrs[0] || "").gsub(/(\d+).*$/, '\1.0')]
+    end
+    
+    "#{nrs.join(".")}#{chars}"
+  end
+  
 private
+
   MATCHER = Regexp.new(
     "([^/\s]*)" +                           # product token
     "(/([^\s]*))?" +                        # optional version
