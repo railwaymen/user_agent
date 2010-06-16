@@ -48,6 +48,10 @@ describe UserAgent do
       ["Firefox", "2.0.0.18", "Windows", "XP"], 
     "Mozilla/5.0 (X11; U; OpenBSD i386; en-US; rv:1.8.1.7) Gecko/20070930 Firefox/2.0.0.7" =>
       ["Firefox", "2.0.0.7", "OpenBSD"],
+    "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3" =>
+      ["Firefox", "3.6.3", "Mac OS X", "10.6"],
+    "Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.5; en-US; rv:1.9.0.3) Gecko/2008092414 Firefox/3.0.3" =>
+      ["Firefox", "3.0.3", "Mac OS X", "10.5"],
     
     # Opera
     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; en) Opera 8.0" =>
