@@ -26,18 +26,19 @@ class UserAgent
   end
   
 private
+  MATCHER = Regexp.new(
+    "([^/\s]*)" +                           # product token
+    "(/([^\s]*))?" +                        # optional version
+    "([\s]*\\[[a-zA-Z][a-zA-Z]\\])?" +      # optional old netscape
+    "[\s]*" +                               # eat space!
+    "(\\((([^()]|(\\([^()]*\\)))*)\\))?" +  # optional comment, allow one deep nested ()
+    "[\s]*"                                 # eat space!
+  )
+
   def extract_products_from_agent_string
-    pattern = Regexp.new(
-      "([^/\s]*)" +                           # product token
-      "(/([^\s]*))?" +                        # optional version
-      "([\s]*\\[[a-zA-Z][a-zA-Z]\\])?" +      # optional old netscape
-      "[\s]*" +                               # eat space!
-      "(\\((([^()]|(\\([^()]*\\)))*)\\))?" +  # optional comment, allow one deep nested ()
-      "[\s]*"                                 # eat space!
-    )
-    @products = @user_agent.scan(pattern).map{|match|
-      [match[0], match[2], match[5]]
-    }.select{|product| !product[0].empty?}
+    @products = @user_agent.scan(MATCHER).map{|match|
+      [match[0], match[2], match[5]] unless match[0].empty?
+    }.compact
   end
   
   # Browser Identification
