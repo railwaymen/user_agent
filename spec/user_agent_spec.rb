@@ -168,39 +168,39 @@ describe UserAgent do
     end
     
     it "reduce versions to major.minor" do
-      @ua.instance_variable_set(:@browser_version, "5.0.307.11")
+      @ua.browser_version = "5.0.307.11"
       @ua.normalized_browser_version.should eql("5.0")
-      @ua.instance_variable_set(:@browser_version, "9.62")
+      @ua.browser_version = "9.62"
       @ua.normalized_browser_version.should eql("9.62")
-      @ua.instance_variable_set(:@browser_version, "0.9.3")
+      @ua.browser_version = "0.9.3"
       @ua.normalized_browser_version.should eql("0.9")
     end
     
     it "leaves strings untouched" do
-      @ua.instance_variable_set(:@browser_version, "3.0b5")
+      @ua.browser_version = "3.0b5"
       @ua.normalized_browser_version.should eql("3.0b5")
-      @ua.instance_variable_set(:@browser_version, "3.0.5.beta")
+      @ua.browser_version = "3.0.5.beta"
       @ua.normalized_browser_version.should eql("3.0beta")
-      @ua.instance_variable_set(:@browser_version, "3.0.5beta")
+      @ua.browser_version = "3.0.5beta"
       @ua.normalized_browser_version.should eql("3.0beta")
-      @ua.instance_variable_set(:@browser_version, "Mobile 3.1.7 beta")
+      @ua.browser_version = "Mobile 3.1.7 beta"
       @ua.normalized_browser_version.should eql("Mobile 3.1 beta")
     end
     
     it "removes unessecary double zeros" do
-      @ua.instance_variable_set(:@browser_version, "100.00")
+      @ua.browser_version = "100.00"
       @ua.normalized_browser_version.should eql("100.0")
     end
     
     it "forces minor" do
-      @ua.instance_variable_set(:@browser_version, "1")
+      @ua.browser_version = "1"
       @ua.normalized_browser_version.should eql("1.0")
-      @ua.instance_variable_set(:@browser_version, "1beta")
+      @ua.browser_version = "1beta"
       @ua.normalized_browser_version.should eql("1.0beta")
     end
     
     it "leaves string without version untouched" do
-      @ua.instance_variable_set(:@browser_version, "jaja nono")
+      @ua.browser_version = "jaja nono"
       @ua.normalized_browser_version.should eql("jaja nono")
     end
   end
