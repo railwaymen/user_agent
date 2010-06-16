@@ -50,8 +50,7 @@ private
     identify_browser_honest or
     identify_browser_safari or
     identify_browser_compatible or
-    identify_browser_mozilla or
-    identify_browser_other
+    identify_browser_mozilla
   end
   
   def identify_browser_opera
@@ -170,10 +169,6 @@ private
         @browser_name = first[0]
       end
     end
-  end
-  
-  def identify_browser_other
-    # do nothing
   end
   
   # OS Identification
