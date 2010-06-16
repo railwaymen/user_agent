@@ -8,6 +8,14 @@ describe UserAgent do
     # Chrome
     "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.19 (KHTML, like Gecko) Chrome/1.0.154.53 Safari/525.19" =>
       ["Chrome", "1.0.154.53", "Windows", "XP"],
+    "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/533.1 (KHTML, like Gecko) Chrome/5.0.322.2 Safari/533.1" =>
+      ["Chrome", "5.0.322.2", "Windows", "7"],
+    "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_2; en-US) AppleWebKit/532.9 (KHTML, like Gecko) Chrome/5.0.307.11 Safari/532.9" =>
+      ["Chrome", "5.0.307.11", "Mac OS X", "10.6.2"],
+    "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/532.5 (KHTML, like Gecko) Chrome/4.0.249.78 Safari/532.5" =>
+      ["Chrome", "4.0.249.78", "Windows", "7"],
+    "Mozilla/5.0 (X11; U; Linux i686 (x86_64); en-US) AppleWebKit/532.0 (KHTML, like Gecko) Chrome/3.0.198.0 Safari/532.0" =>
+      ["Chrome", "3.0.198.0", "Linux"],
       
     # ChromeFrame
     "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; FunWebProducts; SLCC1; chromeframe; .NET CLR 2.0.50727; Media Center PC 5.0; .NET CLR 3.0.04506; InfoPath.1)" =>
