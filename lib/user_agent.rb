@@ -21,6 +21,10 @@ class UserAgent
     [os_name, os_version].compact.join(' ')
   end
   
+  def string
+    @user_agent || ""
+  end
+  
 private
   def extract_products_from_agent_string
     pattern = Regexp.new(

@@ -135,5 +135,17 @@ describe UserAgent do
   it "should gracefully handle nil values" do
     UserAgent.new(nil).browser_name.should be_nil
   end
+  
+  describe "#string" do
+    it "returns user agent string on known user agent" do
+      uas = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; en) Opera 8.0"
+      UserAgent.new(uas).string.should eql(uas)
+    end
+    
+    it "returns user agent string on unknown user agent" do
+      uas = "whatever/v345"
+      UserAgent.new(uas).string.should eql(uas)
+    end
+  end
 
 end
