@@ -182,17 +182,19 @@ private
   end
   
   def identify_os_windows
-    return unless element = @comment_elements.detect{|e| e =~ /^win.*\d/i} or
+    return unless element = @comment_elements.detect{|e| e =~ /^win.*(\d|ce)/i} or
                   @user_agent =~ /Microsoft Windows/
     @os_name = 'Windows'
     @os_version = case element
-    when /98/ then '98'
-    when /9x 4.90/ then 'ME'
-    when /NT 4.0/ then 'NT'
-    when /NT 5.0/ then '2000'
-    when /NT 5.1/ then 'XP'
-    when /NT 6.0/ then 'Vista'
-    when /NT 6.1/ then '7'
+    when /Win.*95/       then '95'
+    when /Win.*98/       then '98'
+    when /Win.*9x 4.90/  then 'ME'
+    when /Win.*NT 4.0/   then 'NT'
+    when /Win.*NT 5.0/   then '2000'
+    when /Win.*NT 5.1/   then 'XP'
+    when /Win.*NT 6.0/   then 'Vista'
+    when /Win.*NT 6.1/   then '7'
+    when /Win.*CE/       then 'CE'
     end
   end
   

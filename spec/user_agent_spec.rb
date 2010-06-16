@@ -70,6 +70,8 @@ describe UserAgent do
       ["Opera", "9.62", "Linux"],
     "Opera/9.80 (Windows NT 5.1; U; cs) Presto/2.2.15 Version/10.00" =>
       ["Opera", "10.00", "Windows", "XP"],
+    "Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; PPC; 480x640) Opera 8.60 [en]" =>
+      ["Opera", "8.60", "Windows", "CE"],
     
     # Opera Mini 
     "Opera/9.60 (J2ME/MIDP; Opera Mini/4.2.13918/516; U; de) Presto/2.2.0" =>
