@@ -255,4 +255,41 @@ describe UserAgent do
     end
   end
 
+  describe "#unknown?" do
+    it "returns true on empty result" do
+      UserAgent.new(nil).should be_unknown
+      UserAgent.new("").should be_unknown
+      UserAgent.new("agent you;don't know anything about").should be_unknown
+    end
+    
+    it "returns false if browser name is given" do
+      ua = UserAgent.new("")
+      ua.browser_name = "I know"
+      ua.should_not be_unknown
+    end
+    
+    it "returns true if browser version is given" do
+      ua = UserAgent.new("")
+      ua.browser_version = "1.2.3"
+      ua.should be_unknown
+    end
+    
+    it "returns true if os name is given" do
+      ua = UserAgent.new("")
+      ua.os_name = "MS Know"
+      ua.should be_unknown
+    end
+    
+    it "returns true if browser version is given" do
+      ua = UserAgent.new("")
+      ua.os_version = "1.2.3"
+      ua.should be_unknown
+    end
+    
+    it "returns true if browser name is empty string" do
+      ua = UserAgent.new("")
+      ua.browser_name = ""
+      ua.should be_unknown
+    end
+  end
 end

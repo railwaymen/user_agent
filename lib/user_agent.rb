@@ -41,6 +41,10 @@ class UserAgent
     "#{nrs.join(".")}#{chars}"
   end
   
+  def unknown?
+    @browser_name == "" || !@browser_name
+  end
+  
 private
 
   MATCHER = Regexp.new(
