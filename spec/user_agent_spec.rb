@@ -6,6 +6,8 @@ describe UserAgent do
     "" => [], 
     
     # Chrome
+    "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_4; en-US) AppleWebKit/534.1 (KHTML, like Gecko) Chrome/6.0.437.2 Safari/534.1" =>
+      ["Chrome", "6.0.437.2", "Mac OS X", "10.6.4"],
     "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.19 (KHTML, like Gecko) Chrome/1.0.154.53 Safari/525.19" =>
       ["Chrome", "1.0.154.53", "Windows", "XP"],
     "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/533.1 (KHTML, like Gecko) Chrome/5.0.322.2 Safari/533.1" =>
