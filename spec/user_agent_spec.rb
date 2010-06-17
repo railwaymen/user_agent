@@ -151,7 +151,11 @@ describe UserAgent do
     "Nokia6630/1.0 (2.3.129) SymbianOS/8.0 Series60/2.6 Profile/MIDP-2.0 Configuration/CLDC-1.1" =>
       [nil, nil, "SymbianOS", "8.0"],
     "Mozilla/4.1 (compatible; MSIE 5.0; Symbian OS; Nokia 6600;432) Opera 6.10 [en]" =>
-      ["Opera", "6.10", "SymbianOS", nil]
+      ["Opera", "6.10", "SymbianOS", nil],
+      
+    # Special Agents
+    "curl/7.7.3 (i686-pc-linux-gnu) libcurl 7.7.3 (OpenSSL 0.9.6)" =>
+      ["curl", "7.7.3", "Linux", nil]
   }
 
   EXAMPLES.each do |agent, expected|

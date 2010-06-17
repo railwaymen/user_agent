@@ -8,10 +8,11 @@ class UserAgent
     return if @user_agent.nil?
     extract_products_from_agent_string
     return if @products.empty?
-
+    
     identify_browser
     identify_os
     identify_mobiles
+    identify_special_agents
   end
   
   def browser
@@ -294,6 +295,14 @@ private
         @os_name = os
         return
       end
+    end
+  end
+  
+  def identify_special_agents
+    case @user_agent
+    when /^curl\/([\d\.]+)/
+      @browser_version = $1
+      @browser_name = "curl"
     end
   end
 end
