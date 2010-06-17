@@ -303,6 +303,10 @@ private
     when /^curl\/([\d\.]+)/
       @browser_version = $1
       @browser_name = "curl"
+    when /Googlebot\/([\d\.]+).*\+http:\/\/www\.google\.com\/bot\.html/
+      @os_version, @os_name = nil, nil
+      @browser_version = $1
+      @browser_name = "Googlebot"
     end
   end
 end

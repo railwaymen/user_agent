@@ -155,7 +155,11 @@ describe UserAgent do
       
     # Special Agents
     "curl/7.7.3 (i686-pc-linux-gnu) libcurl 7.7.3 (OpenSSL 0.9.6)" =>
-      ["curl", "7.7.3", "Linux", nil]
+      ["curl", "7.7.3", "Linux", nil],
+    "Googlebot/2.1 (+http://www.google.com/bot.html)" =>
+      ["Googlebot", "2.1", nil, nil],
+    "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" =>
+      ["Googlebot", "2.1", nil, nil]
   }
 
   EXAMPLES.each do |agent, expected|
