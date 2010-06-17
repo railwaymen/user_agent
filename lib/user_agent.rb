@@ -1,6 +1,4 @@
 class UserAgent
-  VERSION = '0.0.1'
-  
   attr_accessor :browser_name, :browser_version, :os_name, :os_version
   
   def initialize(user_agent)
