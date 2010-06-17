@@ -263,6 +263,16 @@ private
     end
   end
   
+  def identify_os_other
+    %w(FreeBSD NetBSD OpenBSD SunOS Amiga BeOS IRIX OS/2 Warp).each do |os|
+      os_regexp = Regexp.new(Regexp.escape(os))
+      if @comment_elements.detect{|e| e =~ os_regexp}
+        @os_name = os
+        return
+      end
+    end
+  end
+  
   def identify_mobiles
     case @user_agent
     when /^BlackBerry[^\/]*\/([\d\.]+)/
@@ -285,16 +295,6 @@ private
       @os_version, @os_name = nil, nil if %w(Windows Linux).include?(@os_name)
       @browser_name = "Firefox Fennec"
       @browser_version = $1
-    end
-  end
-  
-  def identify_os_other
-    %w(FreeBSD NetBSD OpenBSD SunOS Amiga BeOS IRIX OS/2 Warp).each do |os|
-      os_regexp = Regexp.new(Regexp.escape(os))
-      if @comment_elements.detect{|e| e =~ os_regexp}
-        @os_name = os
-        return
-      end
     end
   end
   
