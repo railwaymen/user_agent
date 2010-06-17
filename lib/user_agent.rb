@@ -11,6 +11,7 @@ class UserAgent
 
     identify_browser
     identify_os
+    identify_mobiles
   end
   
   def browser
@@ -117,7 +118,14 @@ private
       @browser_version = safari_build_to_version(browser[1])
     end
     
-    @browser_name = @user_agent =~ /Mobile/ ? 'Safari Mobile' : 'Safari'
+    @browser_name = case @user_agent 
+    when /webOS\//
+     'Palm webkit'
+    when /Mobile/
+      'Safari Mobile'
+    else
+      'Safari'
+    end
   end
   
   SAFARI_BUILD_TO_VERSION = {
@@ -199,7 +207,6 @@ private
   def identify_os_windows
     return unless element = @comment_elements.detect{|e| e =~ /^win.*(\d|ce)/i} or
                   @user_agent =~ /Microsoft Windows/
-    @os_name = 'Windows'
     @os_version = case element
     when /Win.*95/       then '95'
     when /Win.*98/       then '98'
@@ -209,8 +216,11 @@ private
     when /Win.*NT 5.1/   then 'XP'
     when /Win.*NT 6.0/   then 'Vista'
     when /Win.*NT 6.1/   then '7'
-    when /Win.*CE/       then 'CE'
+    when /Win.*CE/
+      @browser_name = "MSIE Mobile" if @browser_name == "MSIE"
+      'CE'
     end
+    @os_name = 'Windows'
   end
   
   def identify_os_apple
@@ -249,6 +259,31 @@ private
       "Ubuntu #{$1}"
     else
       nil
+    end
+  end
+  
+  def identify_mobiles
+    case @user_agent
+    when /^BlackBerry[^\/]*\/([\d\.]+)/
+      @os_name = "BlackBerry OS"
+      @os_version = $1
+      @browser_name ||= "BlackBerry Browser"
+    when /webOS\/([\d\.]+)/
+      @os_name = "Palm webOS"
+      @os_version = $1
+    when /PalmCentro/, /PalmOS/, /PalmSource/
+      @os_version, @browser_name, @browser_version = nil, nil, nil
+      @os_name = "PalmOS"
+    when /Symbian/
+      @os_version = @user_agent =~ /SymbianOS\/([\d\.]+)/ ? $1 : nil
+      if @browser_name =~ /Safari/
+        @browser_name = "Webkit Mobile"
+      end
+      @os_name = "SymbianOS"
+    when /Fennec\/([\.\da-z]+)/
+      @os_version, @os_name = nil, nil if %w(Windows Linux).include?(@os_name)
+      @browser_name = "Firefox Fennec"
+      @browser_version = $1
     end
   end
   

@@ -52,6 +52,12 @@ describe UserAgent do
       ["Firefox", "3.6.3", "Mac OS X", "10.6"],
     "Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.5; en-US; rv:1.9.0.3) Gecko/2008092414 Firefox/3.0.3" =>
       ["Firefox", "3.0.3", "Mac OS X", "10.5"],
+      
+    # Firefox Fennec
+    "Mozilla/5.0 (X11; U; Linux armv61; en-US; rv:1.9.1b2pre) Gecko/20081015 Fennec/1.0a1" =>
+      ["Firefox Fennec", "1.0a1", nil, nil],
+    "Mozilla/5.0 (Windows; U; Win98; en-US; rv:1.8.1.17) Gecko/20080829 Mozilla/5.0 (X11; U; Linux armv7l; en-US; rv:1.9.2a1pre) Gecko/20090322 Fennec/1.0b2pre" =>
+      ["Firefox Fennec", "1.0b2pre", nil, nil],
     
     # Opera
     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; en) Opera 8.0" =>
@@ -111,7 +117,41 @@ describe UserAgent do
       
     # Fluid
     "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_7; de-de) AppleWebKit/528.16 (KHTML, like Gecko) Fluid/0.9.6 Safari/528.16" =>
-      ["Fluid", "0.9.6", "Mac OS X", "10.5.7"]
+      ["Fluid", "0.9.6", "Mac OS X", "10.5.7"],
+      
+    # Blackberry
+    "BlackBerry9700/5.0.0.351 Profile/MIDP-2.1 Configuration/CLDC-1.1 VendorID/123" =>
+      ["BlackBerry Browser", nil, "BlackBerry OS", "5.0.0.351"],
+    "BlackBerry8703e/4.1.0 Profile/MIDP-2.0 Configuration/CLDC-1.1 VendorID/105" =>
+      ["BlackBerry Browser", nil, "BlackBerry OS", "4.1.0"],
+      
+    # Palm
+    "Mozilla/5.0 (webOS/1.0; U; en-US) AppleWebKit/525.27.1 (KHTML, like Gecko) Version/1.1 Safari/525.27.1 Pre/1.0" =>
+      ["Palm webkit", "1.1", "Palm webOS", "1.0"],
+    "PalmCentro/v0001 Mozilla/4.0 (compatible; MSIE 6.0; Windows 98; PalmSource/Palm-D061; Blazer/4.5) 16;320x320" =>
+      [nil, nil, "PalmOS", nil],
+    "Mozilla/4.76 [en] (PalmOS; U; WebPro/3.0; Palm-Arz1)" =>
+      [nil, nil, "PalmOS", nil],
+    "Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; IEMobile 6.12) /Palm 500v/v0100 UP.Link/6.3.1.13.0" =>
+      ["MSIE Mobile", "6.0", "Windows", "CE"],
+    "Mozilla/4.0 (compatible; MSIE 6.0; Windows 98; PalmSource/Palm-TunX; Blazer/4.3) 16;320x448" =>
+      [nil, nil, "PalmOS", nil],
+    "Mozilla/4.0 (compatible; MSIE 6.0; Windows 95; PalmSource; Blazer 3.0) 16;160x160" =>
+      [nil, nil, "PalmOS", nil],
+      
+    # Windows CE
+    "Mozilla/4.0 (compatible; MSIE 4.01; Windows CE; PPC; 240x320)" =>
+      ["MSIE Mobile", "4.01", "Windows", "CE"],
+    "Mozilla/4.0 (compatible; MSIE 6.0; Windows CE)" =>
+      ["MSIE Mobile", "6.0", "Windows", "CE"],
+      
+    # SymbianOS
+    "Mozilla/5.0 (SymbianOS/9.2; U; Series60/3.1 Nokia6120c/3.83; Profile/MIDP-2.0 Configuration/CLDC-1.1) AppleWebKit/413 (KHTML, like Gecko) Safari/413" =>
+      ["Webkit Mobile", "413", "SymbianOS", "9.2"],
+    "Nokia6630/1.0 (2.3.129) SymbianOS/8.0 Series60/2.6 Profile/MIDP-2.0 Configuration/CLDC-1.1" =>
+      [nil, nil, "SymbianOS", "8.0"],
+    "Mozilla/4.1 (compatible; MSIE 5.0; Symbian OS; Nokia 6600;432) Opera 6.10 [en]" =>
+      ["Opera", "6.10", "SymbianOS", nil]
   }
 
   EXAMPLES.each do |agent, expected|
