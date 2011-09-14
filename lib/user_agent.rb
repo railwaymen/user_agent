@@ -256,10 +256,18 @@ private
   
   def identify_os_linux
     return unless element = @comment_elements.detect{|e| e =~ /linux/i}
-    @os_name = 'Linux'
+    @os_name = case @comment_elements[2] 
+    when /android/i
+      'Android'
+    else
+      'Linux'
+    end
+
     @os_version = case @user_agent
     when /Ubuntu\/([0-9_\.]{3,})/
       "Ubuntu #{$1}"
+    when /Android ([0-9_\.]{3,})/
+      $1.gsub('_','.')
     else
       nil
     end
